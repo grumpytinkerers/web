@@ -1,0 +1,182 @@
+/* ==========================================================================
+   shadcn-ui Theme Preset: b6F9PinLO
+   Style: Nova | Base: Neutral | Theme: Yellow | Font: JetBrains Mono | Radius: 0.5rem
+   ========================================================================== */
+
+:root {
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* HSL Color Tokens - shadcn neutral + yellow preset */
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 98%;
+
+  /* Yellow Accent Theme (preset b6F9PinLO) */
+  --primary: 47.9 95.8% 53.1%;
+  --primary-foreground: 26 83.3% 14.1%;
+
+  --secondary: 0 0% 14.9%;
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+
+  --accent: 0 0% 14.9%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 0 0% 14.9%;
+  --input: 0 0% 14.9%;
+  --ring: 47.9 95.8% 53.1%;
+
+  --radius: 0.5rem;
+}
+
+/* Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-mono);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout Container */
+.container {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* shadcn-ui Card Component (Nova Style) */
+.card {
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Status Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: hsl(var(--primary) / 0.15);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / 0.3);
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: hsl(var(--primary));
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: hsl(var(--foreground));
+}
+
+.description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Card Content / Actions */
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* shadcn-ui Button Component */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.icon-subtle {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Card Footer */
+.card-footer {
+  border-top: 1px solid hsl(var(--border));
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mono-muted {
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+}
