@@ -1,0 +1,41 @@
+# Gitleaks on every PR and every push to main (Loki, 2026-10-28, repo-standard PR-REFS-MITIGATION rule 4).
+# Fails the job loudly on any finding. Respects .gitleaks.toml in the repo if present.
+name: Gitleaks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: gitleaks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gitleaks:
+    runs-on: [self-hosted, loki]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gitleaks
+        env:
+          GITLEAKS_VERSION: "8.30.1"
+          GITLEAKS_SHA256: "88f91962aa2f93ac6ab281d553b9e125f5197bbbce38f9f2437f7299c32e5509"
+        run: |
+          set -euo pipefail
+          d="${RUNNER_TEMP:-/tmp}/gitleaks"; mkdir -p "$d"
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz -C "$d" gitleaks
+          echo "${GITLEAKS_SHA256}  $d/gitleaks" | sha256sum -c -
+          echo "$d" >> "$GITHUB_PATH"
+
+      - name: Gitleaks (full history)
+        run: |
+          set -euo pipefail
+          if ! gitleaks git . --verbose --redact --no-banner --exit-code 1; then
+            echo "::error title=Gitleaks failed::Possible secrets or personal info found. Remove them from the branch history and rotate anything exposed. Do not push this to GitHub."
+            exit 1
+          fi
+          echo "Gitleaks: no leaks detected."
